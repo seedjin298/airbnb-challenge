@@ -6,6 +6,7 @@ from .models import Tweet, Like
 class TweetAdmin(admin.ModelAdmin):
     list_display = (
         "payload",
+        "total_likes",
         "user",
         "created_at",
         "updated_at",
