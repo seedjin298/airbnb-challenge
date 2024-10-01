@@ -17,9 +17,9 @@ class ElonMuskFilter(admin.SimpleListFilter):
     def queryset(self, request, tweets):
         is_contain = self.value()
         if is_contain == "contain":
-            return tweets.filter(payload__contains="Elon Musk")
+            return tweets.filter(payload__icontains="Elon Musk")
         if is_contain == "not_contain":
-            return tweets.exclude(payload__contains="Elon Musk")
+            return tweets.exclude(payload__icontains="Elon Musk")
         else:
             tweets
 
