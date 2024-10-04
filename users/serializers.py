@@ -1,32 +1,26 @@
 from rest_framework import serializers
+from .models import User
 
 
-class UsersSerializer(serializers.Serializer):
+class UsersSerializer(serializers.ModelSerializer):
 
-    name = serializers.CharField(
-        max_length=150,
-        read_only=True,
-    )
-    gender = serializers.CharField()
+    class Meta:
+        model = User
+        fields = (
+            "name",
+            "gender",
+        )
 
 
-class UserSerializer(serializers.Serializer):
+class UserSerializer(serializers.ModelSerializer):
 
-    pk = serializers.IntegerField(
-        read_only=True,
-    )
-    first_name = serializers.CharField(
-        max_length=150,
-        read_only=True,
-    )
-    last_name = serializers.CharField(
-        max_length=150,
-        read_only=True,
-    )
-    name = serializers.CharField(
-        max_length=150,
-        read_only=True,
-    )
-    gender = serializers.CharField(
-        max_length=10,
-    )
+    class Meta:
+        model = User
+        fields = (
+            "id",
+            "name",
+            "first_name",
+            "last_name",
+            "email",
+            "gender",
+        )
