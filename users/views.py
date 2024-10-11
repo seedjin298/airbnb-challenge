@@ -3,7 +3,7 @@ from rest_framework.exceptions import NotFound
 from rest_framework.response import Response
 from .models import User
 from .serializers import UsersSerializer, UserSerializer
-from tweets.serializers import TweetSerializer
+from tweets.serializers import TweetsSerializer
 
 
 # Create your views here.
@@ -31,8 +31,20 @@ class UserView(APIView):
 
 class UserTweetsView(UserView):
     def get(self, request, pk):
-        serializer = TweetSerializer(
+        serializer = TweetsSerializer(
             self.get_user(pk).tweets.all(),
             many=True,
         )
         return Response(serializer.data)
+
+
+class UserChangePassword(APIView):
+    pass
+
+
+class UserLogIn(APIView):
+    pass
+
+
+class UserLogOut(APIView):
+    pass
