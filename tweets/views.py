@@ -60,6 +60,36 @@ class TweetView(APIView):
         tweet = self.get_tweet(pk)
         if tweet.user != request.user:
             raise PermissionDenied
+        serializer = serializers.TweetSerializer(
+            tweet,
+            data=request.data,
+            partial=True,
+        )
+        if serializer.is_valid():
+            keys = list(request.data.keys())
+            for key in keys:
+                if key != "payload":
+                    return Response(
+                        {
+                            "error": "Wrong data is given. Write proper tweet.",
+                        },
+                        status=HTTP_400_BAD_REQUEST,
+                    )
+            updated_tweet = serializer.save()
+            serializer = serializers.TweetSerializer(
+                updated_tweet,
+                context={"user": request.user},
+            )
+            return Response(serializer.data)
+        else:
+            return Response(
+                serializer.errors,
+                status=HTTP_400_BAD_REQUEST,
+            )
 
     def delete(self, request, pk):
-        pass
+        tweet = self.get_tweet(pk)
+        if tweet.user != request.user:
+            raise PermissionDenied
+        tweet.delete()
+        return Response(status=HTTP_204_NO_CONTENT)
