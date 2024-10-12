@@ -96,8 +96,8 @@ class TestTweetsView(APITestCase):
             dict,
         )
         self.assertEqual(
-            data["user"]["name"],
-            self.NAME,
+            data["user"]["username"],
+            self.USERNAME,
         )
         self.assertEqual(
             data["user"]["gender"],
@@ -158,8 +158,8 @@ class TestTweetView(APITestCase):
         data = response.json()
 
         self.assertEqual(
-            data["user"]["name"],
-            self.NAME,
+            data["user"]["username"],
+            self.USERNAME,
         )
         self.assertEqual(
             data["user"]["gender"],
